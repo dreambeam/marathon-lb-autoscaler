@@ -1,4 +1,6 @@
 import os, requests, boto3, datetime, math
+
+
 marathon_url = os.environ["MARATHON_URL"]
 marathon_port = os.environ["MARATHON_PORT"]
 elb_name = os.environ["ELB_NAME"]
@@ -25,6 +27,7 @@ def get_elb_requests(elb_name):
     )
     return int(cloudwatch_metric_data["Datapoints"][0]["Sum"] / 5)
 
+
 def change_marathon_lb_size(marathon_url, marathon_port, new_size):
     url = marathon_url + ":" + marathon_port + "/v2/apps/marathon-lb/"
 
@@ -40,6 +43,7 @@ def change_marathon_lb_size(marathon_url, marathon_port, new_size):
     response = requests.request("PUT", url, data=payload, headers=headers, params=querystring)
 
     return response.status_code
+
 
 def get_spotinst_instances(auth_token, elastigroup):
     url = "https://api.spotinst.io/aws/ec2/group/" + elastigroup + "/instanceHealthiness"
@@ -71,8 +75,8 @@ def get_marathon_lb_tasks(marathon_url, marathon_port):
 def set_spotinst_elastigroup_size(auth_token, elastigroup, instance_size):
     url = "https://api.spotinst.io/aws/ec2/group/" + elastigroup
 
-    payload = "{\"group\": { \"capacity\": { \"target\": " + str(instance_size) + ", \"minimum\": " + str(instance_size) \
-              + ", \"maximum\":" + str(instance_size) + "}}}"
+    payload = "{\"group\": { \"capacity\": { \"target\": " + str(instance_size) + ", \"minimum\": " \
+              + str(instance_size) + ", \"maximum\":" + str(instance_size) + "}}}"
     headers = {
         'authorization': "Bearer " + auth_token,
         'content-type': "application/json",
