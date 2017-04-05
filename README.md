@@ -20,7 +20,7 @@ example metronome job config:
 {
   "id": "marathon-lb-autoscaler",
   "run": {
-    "cmd": "docker pull registry.vidazoo.com:5000/marathon-lb-autoscaler:latest && docker run --rm -e SPOTINST_AUTH_TOKEN=3c47...0a7 -e ELASTIGROUP_ID=sig-######## -e ELB_NAME=your_elb  -e LB_PER_X_CONNECTIONS=10000 -e AWS_ACCESS_KEY_ID=your_aws_Key -e AWS_SECRET_ACCESS_KEY=your_aws_secret -e MARATHON_URL=http://master.mesos -e AWS_DEFAULT_REGION=us-east-1 -e MARATHON_PORT=8080 -e MIN_NUM_OF_LB=4 registry.vidazoo.com:5000/marathon-lb-autoscaler:latest",
+    "cmd": "docker pull vidazoohub/marathon-lb-autoscaler:latest && docker run --rm -e SPOTINST_AUTH_TOKEN=3c47...0a7 -e ELASTIGROUP_ID=sig-######## -e ELB_NAME=your_elb  -e LB_PER_X_CONNECTIONS=10000 -e AWS_ACCESS_KEY_ID=your_aws_Key -e AWS_SECRET_ACCESS_KEY=your_aws_secret -e MARATHON_URL=http://master.mesos -e AWS_DEFAULT_REGION=us-east-1 -e MARATHON_PORT=8080 -e MIN_NUM_OF_LB=4 vidazoohub/marathon-lb-autoscaler:latest",
     "cpus": 0.1,
     "mem": 256,
     "disk": 100
