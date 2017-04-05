@@ -14,8 +14,8 @@ def get_elb_requests(elb_name):
     )
 
     cloudwatch_metric_data = client.get_metric_statistics(
-        Period=60,
-        StartTime=datetime.datetime.utcnow() - datetime.timedelta(minutes=2),
+        Period=300,
+        StartTime=datetime.datetime.utcnow() - datetime.timedelta(minutes=6),
         EndTime=datetime.datetime.utcnow() - datetime.timedelta(minutes=1),
         MetricName='RequestCount',
         Namespace='AWS/ELB',
@@ -23,7 +23,7 @@ def get_elb_requests(elb_name):
         Dimensions=[{'Name': "LoadBalancerName", 'Value': elb_name}],
         Unit="Count"
     )
-    return int(cloudwatch_metric_data["Datapoints"][0]["Sum"])
+    return int(cloudwatch_metric_data["Datapoints"][0]["Sum"] / 5)
 
 def change_marathon_lb_size(marathon_url, marathon_port, new_size):
     url = marathon_url + ":" + marathon_port + "/v2/apps/marathon-lb/"
@@ -84,7 +84,7 @@ def set_spotinst_elastigroup_size(auth_token, elastigroup, instance_size):
     return response.status_code
 
 requests_last_minute = get_elb_requests(elb_name)
-print "there where " + str(requests_last_minute) + " requests last minute"
+print "there was an average of " + str(requests_last_minute) + " requests per minute over the last 5 minutes"
 marathon_lb_needed = int(math.ceil(requests_last_minute / lb_per_x_connections))
 if marathon_lb_needed < min_num_of_lb:
     marathon_lb_needed = min_num_of_lb
