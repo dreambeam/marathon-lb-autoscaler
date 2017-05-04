@@ -1,6 +1,6 @@
 # marathon-lb-autoscaler
 
-simple container which designed to run inside metronome (or other cron like mesos framework) which takes the current # of connections per minutes from an ELB cloudwatch every X minutes in order to allow that metrics to be used to autoscale the marathon-lb tasks & public workers in a spotinst elstigroup.
+docker container which designed to run inside metronome (or other cron like mesos framework) which takes the current # of connections per minutes from an ELB cloudwatch every X minutes in order to allow that metrics to be used to autoscale the marathon-lb tasks & public workers in a spotinst elstigroup.
 
 required envs:
 * AWS_ACCESS_KEY_ID
