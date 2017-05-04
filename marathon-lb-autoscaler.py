@@ -90,8 +90,8 @@ def set_spotinst_elastigroup_size(auth_token, elastigroup, instance_size):
 requests_last_minute = get_elb_requests(elb_name)
 print "there was an average of " + str(requests_last_minute) + " requests per minute over the last 5 minutes"
 marathon_lb_needed = int(math.ceil(requests_last_minute / lb_per_x_connections))
-if marathon_lb_needed < min_num_of_lb:
-    marathon_lb_needed = min_num_of_lb
+if int(marathon_lb_needed) < int(min_num_of_lb):
+    marathon_lb_needed = int(min_num_of_lb)
 print "there are " + str(marathon_lb_needed) + " marathon-lb instances needed"
 current_spotinst_instances = get_spotinst_instances(spotinst_auth_token, elastigroup_id)
 print "there are currently " + str(current_spotinst_instances) + " marathon-lb spot instances"
